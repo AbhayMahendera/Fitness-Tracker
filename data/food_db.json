@@ -1,0 +1,250 @@
+{
+    "foods": [
+      {
+        "name": "Chicken Breast",
+        "protein_g": 31,
+        "carbs_g": 0,
+        "fat_g": 3.6,
+        "calories": 165
+      },
+      {
+        "name": "Salmon",
+        "protein_g": 25,
+        "carbs_g": 0,
+        "fat_g": 13,
+        "calories": 208
+      },
+      {
+        "name": "Eggs",
+        "protein_g": 13,
+        "carbs_g": 1.1,
+        "fat_g": 11,
+        "calories": 155
+      },
+      {
+        "name": "Greek Yogurt",
+        "protein_g": 10,
+        "carbs_g": 4,
+        "fat_g": 5,
+        "calories": 97
+      },
+      {
+        "name": "Tofu",
+        "protein_g": 8,
+        "carbs_g": 2,
+        "fat_g": 4.8,
+        "calories": 76
+      },
+      {
+        "name": "Brown Rice",
+        "protein_g": 7.5,
+        "carbs_g": 77,
+        "fat_g": 2.2,
+        "calories": 371
+      },
+      {
+        "name": "Quinoa",
+        "protein_g": 14,
+        "carbs_g": 64,
+        "fat_g": 6,
+        "calories": 368
+      },
+      {
+        "name": "Almonds",
+        "protein_g": 21,
+        "carbs_g": 22,
+        "fat_g": 49,
+        "calories": 579
+      },
+      {
+        "name": "Lentils",
+        "protein_g": 9,
+        "carbs_g": 20,
+        "fat_g": 0.4,
+        "calories": 116
+      },
+      {
+        "name": "Oatmeal",
+        "protein_g": 11,
+        "carbs_g": 68,
+        "fat_g": 6,
+        "calories": 389
+      },
+      {
+        "name": "Peanut Butter",
+        "protein_g": 25,
+        "carbs_g": 20,
+        "fat_g": 50,
+        "calories": 588
+      },
+      {
+        "name": "Cottage Cheese",
+        "protein_g": 11,
+        "carbs_g": 3.4,
+        "fat_g": 4.3,
+        "calories": 98
+      },
+      {
+        "name": "Milk",
+        "protein_g": 3.4,
+        "carbs_g": 4.8,
+        "fat_g": 3.3,
+        "calories": 61
+      },
+      {
+        "name": "Cheddar Cheese",
+        "protein_g": 25,
+        "carbs_g": 1.3,
+        "fat_g": 33,
+        "calories": 403
+      },
+      {
+        "name": "Tuna",
+        "protein_g": 29,
+        "carbs_g": 0,
+        "fat_g": 1.3,
+        "calories": 132
+      },
+      {
+        "name": "Shrimp",
+        "protein_g": 20,
+        "carbs_g": 0.2,
+        "fat_g": 0.5,
+        "calories": 85
+      },
+      {
+        "name": "Turkey Breast",
+        "protein_g": 29,
+        "carbs_g": 0,
+        "fat_g": 1,
+        "calories": 135
+      },
+      {
+        "name": "Spinach",
+        "protein_g": 2.9,
+        "carbs_g": 3.6,
+        "fat_g": 0.4,
+        "calories": 23
+      },
+      {
+        "name": "Broccoli",
+        "protein_g": 2.8,
+        "carbs_g": 6.6,
+        "fat_g": 0.4,
+        "calories": 34
+      },
+      {
+        "name": "Sweet Potato",
+        "protein_g": 2,
+        "carbs_g": 20,
+        "fat_g": 0.1,
+        "calories": 86
+      },
+      {
+        "name": "Banana",
+        "protein_g": 1.1,
+        "carbs_g": 22.8,
+        "fat_g": 0.3,
+        "calories": 89
+      },
+      {
+        "name": "Apple",
+        "protein_g": 0.3,
+        "carbs_g": 14,
+        "fat_g": 0.2,
+        "calories": 52
+      },
+      {
+        "name": "Avocado",
+        "protein_g": 2,
+        "carbs_g": 8.5,
+        "fat_g": 15,
+        "calories": 160
+      },
+      {
+        "name": "Chia Seeds",
+        "protein_g": 16,
+        "carbs_g": 42,
+        "fat_g": 31,
+        "calories": 486
+      },
+      {
+        "name": "Walnuts",
+        "protein_g": 15,
+        "carbs_g": 14,
+        "fat_g": 65,
+        "calories": 654
+      },
+      {
+        "name": "Cashews",
+        "protein_g": 18,
+        "carbs_g": 30,
+        "fat_g": 44,
+        "calories": 553
+      },
+      {
+        "name": "Mushrooms",
+        "protein_g": 3.1,
+        "carbs_g": 3.3,
+        "fat_g": 0.3,
+        "calories": 22
+      },
+      {
+        "name": "Cucumber",
+        "protein_g": 0.7,
+        "carbs_g": 3.6,
+        "fat_g": 0.1,
+        "calories": 15
+      },
+      {
+        "name": "Carrots",
+        "protein_g": 0.9,
+        "carbs_g": 9.6,
+        "fat_g": 0.2,
+        "calories": 41
+      },
+      {
+        "name": "Oranges",
+        "protein_g": 0.9,
+        "carbs_g": 12,
+        "fat_g": 0.1,
+        "calories": 47
+      },
+      {
+        "name": "Blueberries",
+        "protein_g": 0.7,
+        "carbs_g": 14,
+        "fat_g": 0.3,
+        "calories": 57
+      },
+      {
+        "name": "Strawberries",
+        "protein_g": 0.8,
+        "carbs_g": 7.7,
+        "fat_g": 0.3,
+        "calories": 32
+      },
+      {
+        "name": "Honey",
+        "protein_g": 0.3,
+        "carbs_g": 82.4,
+        "fat_g": 0,
+        "calories": 304
+      },
+      {
+        "name": "Dark Chocolate",
+        "protein_g": 7.8,
+        "carbs_g": 46,
+        "fat_g": 43,
+        "calories": 598
+      },
+      {
+        "name": "Coconut",
+        "protein_g": 3.3,
+        "carbs_g": 15,
+        "fat_g": 33,
+        "calories": 354
+      }
+    ]
+  }
+  
