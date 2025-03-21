@@ -4,8 +4,8 @@
     "full_name": "test test",
     "gender": "male",
     "age": 21,
-    "weight_lbs": 180,
-    "height_cm": 160,
+    "weight": 90,
+    "height": 1.60,
     "activity_level": "moderate",
     "email": "test_test@test.com"
   },
