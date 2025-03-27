@@ -1,21 +1,21 @@
 {
-  "username": "test_test",
-  "details": {
-    "full_name": "test test",
-    "gender": "male",
-    "age": 21,
-    "weight": 90,
-    "height": 1.60,
-    "activity_level": "moderate",
-    "email": "test_test@test.com"
-  },
-  "daily_logs": [
-    {
-      "date": "2025-03-19",
-      "activity": "moderate",
-      "estimated_calories_consumed": 2200,
-      "sleep_hours": 7,
-      "stress": false
-    }
-  ]
+    "username": "test_test",
+    "details": {
+        "full_name": "test test",
+        "gender": "male",
+        "age": 22,
+        "weight": 90,
+        "height": 1.6,
+        "activity_level": "moderate",
+        "email": "test_test@test.com"
+    },
+    "daily_logs": [
+        {
+            "date": "2025-03-19",
+            "activity": "moderate",
+            "estimated_calories_consumed": 2200,
+            "sleep_hours": 7,
+            "stress": false
+        }
+    ]
 }
