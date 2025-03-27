@@ -1,0 +1,13 @@
+{
+    "username": "abhay12",
+    "details": {
+        "full_name": "abhay",
+        "gender": "makle",
+        "age": 12,
+        "weight": 33.0,
+        "height": 1.3,
+        "activity_level": "low",
+        "email": "aa@aa.com"
+    },
+    "daily_logs": []
+}
