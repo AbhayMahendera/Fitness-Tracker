@@ -1,5 +1,0 @@
-Plan out project directory Structure.
-make all the files
-
-
-Main.py -  CLI entry point.
