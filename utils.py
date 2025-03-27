@@ -1,5 +1,6 @@
 import json
 import os
+from auth import hash_password
 
 # ---------------------------- Make New User Data ---------------------------- #
 
@@ -10,8 +11,6 @@ def make_new_user():
     
     # Ensure the directory exists
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-
-
 
     password = None
     confirm_password = "Undefined"
@@ -25,22 +24,79 @@ def make_new_user():
 
     print("\nPassword set successfully!\n")
 
+                                 #---------------------------Hashing and Storing the password---------------------------
+        # Hashing and Storing the password
+    password_hashed = hash_password(password)
+    print(f"Hashed password: {password_hashed}")
+
+    filename = os.path.join("data", "user_db.json")
+
+    filename = os.path.join("data", "user_db.json")
+
+    if os.path.exists(filename):
+        with open(filename, "r", encoding="utf-8") as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                data = {} 
+    else:
+        data = {}
+
+    data[username] = password_hashed
+
+    with open(filename, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
+
+    # -------------------------------------- #
+    filename = os.path.join("data", "users", f"{username}.json")
+    
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     full_name = input("Enter your full name: ")
     gender = input("Enter your gender: ")
 
-    
     while True:
         try:
             age = int(input("Enter your age: "))
-            weight = float(input("Enter your weight (kg): "))
-            height = float(input("Enter your height (m): "))
+            if age <= 0:
+                raise ValueError("Age must be a positive integer.")
             break
-        except ValueError:
-            print("Invalid input. Please enter numbers for age, weight, and height.")
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a valid age.")
 
-    activity_level = input("Enter your activity level (low, moderate, high): ")
-    email = input("Enter your email: ")
+    while True:
+        try:
+            weight = float(input("Enter your weight (kg): "))
+            if weight <= 0:
+                raise ValueError("Weight must be a positive number.")
+            break
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a valid weight.")
+
+    while True:
+        try:
+            height = float(input("Enter your height (m): "))
+            if height <= 0:
+                raise ValueError("Height must be a positive number.")
+            break
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a valid height.")
+
+    while True:
+        activity_level = input("Enter your activity level (low, moderate, high): ").lower()
+        if activity_level in ['low', 'moderate', 'high']:
+            break
+        else:
+            print("Invalid input. Please enter one of the following options: low, moderate, high.")
+
+    
+    while True:
+        email = input("Enter your email: ")
+        if "@" in email and "." in email:
+            break
+        else:
+            print("Invalid email format. Please enter a valid email.")
 
     user_data = {
         "username": username,
@@ -62,12 +118,12 @@ def make_new_user():
     print(f"\nUser '{username}' has been created successfully!\n")
 
 
+make_new_user()
+
 
 # ---------------------------- Fetch User Data ---------------------------- #
 
-
 def get_user_data(username):
-
     filename = os.path.join("data", "users", f"{username}.json")
     try:
         with open(filename, "r", encoding="utf-8") as file:
@@ -99,11 +155,9 @@ def get_user_data(username):
         return "Error: JSON file not found."
     except json.JSONDecodeError:
         return "Error: Invalid JSON format."
-    
 
 
 # ---------------------------- Update User Data ---------------------------- #
-
 
 def update_user_data(username):
     filename = os.path.join("data", "users", f"{username}.json")
@@ -113,7 +167,6 @@ def update_user_data(username):
             user = json.load(file)
 
             while True:
-       
                 print("\n===============================")
                 print("     Update User Info Menu     ")
                 print("===============================")
@@ -131,39 +184,56 @@ def update_user_data(username):
                     print(f"Name updated to: {new_name}")
 
                 elif choice == '2':
-                    try:
-                        new_age = int(input("Enter the new age: "))
-                        user["details"]["age"] = new_age
-                        print(f"Age updated to: {new_age}")
-                    except ValueError:
-                        print("Invalid input. Age must be a number.")
+                    while True:
+                        try:
+                            new_age = int(input("Enter the new age: "))
+                            if new_age <= 0:
+                                raise ValueError("Age must be a positive integer.")
+                            user["details"]["age"] = new_age
+                            print(f"Age updated to: {new_age}")
+                            break
+                        except ValueError as e:
+                            print(f"Invalid input: {e}. Please enter a valid age.")
 
                 elif choice == '3':
-                    try:
-                        new_weight = float(input("Enter the new weight (kg): "))
-                        user["details"]["weight"] = new_weight
-                        print(f"Weight updated to: {new_weight} kg")
-                    except ValueError:
-                        print("Invalid input. Weight must be a number.")
+                    while True:
+                        try:
+                            new_weight = float(input("Enter the new weight (kg): "))
+                            if new_weight <= 0:
+                                raise ValueError("Weight must be a positive number.")
+                            user["details"]["weight"] = new_weight
+                            print(f"Weight updated to: {new_weight} kg")
+                            break
+                        except ValueError as e:
+                            print(f"Invalid input: {e}. Please enter a valid weight.")
 
                 elif choice == '4':
-                    try:
-                        new_height = float(input("Enter the new height (m): "))
-                        user["details"]["height"] = new_height
-                        print(f"Height updated to: {new_height} m")
-                    except ValueError:
-                        print("Invalid input. Height must be a number.")
+                    while True:
+                        try:
+                            new_height = float(input("Enter the new height (m): "))
+                            if new_height <= 0:
+                                raise ValueError("Height must be a positive number.")
+                            user["details"]["height"] = new_height
+                            print(f"Height updated to: {new_height} m")
+                            break
+                        except ValueError as e:
+                            print(f"Invalid input: {e}. Please enter a valid height.")
 
                 elif choice == '5':
-                    new_activity_level = input("Enter the new activity level (e.g., low, moderate, high): ")
-                    user["details"]["activity_level"] = new_activity_level
-                    print(f"Activity level updated to: {new_activity_level}")
+                    
+                    while True:
+                        new_activity_level = input("Enter the new activity level (low, moderate, high): ").lower()
+                        if new_activity_level in ['low', 'moderate', 'high']:
+                            user["details"]["activity_level"] = new_activity_level
+                            print(f"Activity level updated to: {new_activity_level}")
+                            break
+                        else:
+                            print("Invalid input. Please enter one of the following options: low, moderate, high.")
 
                 elif choice == '6':
-             
                     file.seek(0)
                     json.dump(user, file, indent=4)
-                    file.truncate()  
+                    file.truncate()
                     print("\nChanges saved. Returning to the main function...")
                     break  
 
