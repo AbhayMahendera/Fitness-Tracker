@@ -1,5 +1,7 @@
 import json
 import os
+import visualization
+import recommendations
 
 
 # ---------------------------- Fetch User Data ---------------------------- #
@@ -124,7 +126,44 @@ def update_user_data(username):
     except json.JSONDecodeError:
         print("Error: Invalid JSON format.")
 
+# ---------------------------- Log in Data ---------------------------- #
+
+def log_data():
+    return 0
+
+# ---------------------------- Display Logs ---------------------------- #
+
+def show_logs():
+    return 0
+
+# ---------------------------- More Options ---------------------------- #
+
+def more_option():
+    while True:
+        a = input("Key in 1 to see more options.\nKey in 2 to exit: ")
+        if a == '1':
+            while True:
+                b = input("Press 1 to log data.\n Press 2 to view your daily logs.\nPress 3 to see your health trends.\nPress 4 to see diet recommendations for you.\nPress 5 to exit: ")
+                if b == '1':
+                    log_data()
+                    break
+                elif b =='2':
+                    show_logs()
+                    break
+                elif b == '3':
+                    visualization.visualize()
+                    break
+                elif b == '4':
+                    recommendations.show_recommendations()
+                    break
+                elif b == '5':
+                    return
+                else:
+                    print("Wrong input received. Please try again.")
+        elif a == '2':
+            return
+        else:
+            print("Invalid choice. Please try again.")
 
 
-userss='abhay12'
-get_user_data(userss)
+    
