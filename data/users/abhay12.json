@@ -2,12 +2,60 @@
     "username": "abhay12",
     "details": {
         "full_name": "abhay",
-        "gender": "makle",
+        "gender": "male",
         "age": 12,
-        "weight": 33.0,
-        "height": 1.3,
+        "weight": 100.0,
+        "height": 1.2,
         "activity_level": "low",
-        "email": "aa@aa.com"
+        "email": "aa@aa.com",
+        "metrics": {
+            "bmi": 69.44444444444444,
+            "bmr": 1695.0,
+            "tdee": 3220.5
+        }
     },
-    "daily_logs": []
+    "daily_logs": [
+        {
+            "date": "2025-04-01",
+            "activity": "high",
+            "estimated_calories_consumed": 2000,
+            "sleep_hours": 7.0,
+            "stress": true
+        },
+        {
+            "date": "2025-04-01",
+            "activity": "high",
+            "estimated_calories_consumed": 3000,
+            "sleep_hours": 2.0,
+            "stress": true
+        },
+        {
+            "date": "2025-04-01",
+            "activity": "high",
+            "estimated_calories_consumed": 10,
+            "sleep_hours": 1.0,
+            "stress": true
+        },
+        {
+            "date": "2025-04-01",
+            "activity": "low",
+            "estimated_calories_consumed": 12,
+            "sleep_hours": 1.0,
+            "stress": false
+        },
+        {
+            "date": "2025-04-01",
+            "activity": "low",
+            "estimated_calories_consumed": 1000,
+            "sleep_hours": 1.0,
+            "stress": false
+        },
+        {
+            "date": "2025-04-01",
+            "activity": "high",
+            "estimated_calories_consumed": 10000,
+            "sleep_hours": 100.0,
+            "stress": false
+        }
+    ]
 }

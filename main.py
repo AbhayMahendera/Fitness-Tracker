@@ -12,7 +12,7 @@ def main():
             case "1":
                 auth.login()
             case "2":
-                auth.make_new_user() 
+                auth.signup()
             case "3":
                 exit()
             case _:

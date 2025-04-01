@@ -153,7 +153,9 @@ def login():
         if verify_password(password, stored_hash):
             print("Login successful!")
             print(utils.get_user_data(username))
-            break
+            
+            utils.more_option(username)
+
 
         else:
             print("Incorrect password! Try again.")

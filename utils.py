@@ -2,6 +2,9 @@ import json
 import os
 import visualization
 import recommendations
+from datetime import datetime
+from calculations import calculate_bmi, calculate_bmr, calculate_tdee
+
 
 
 # ---------------------------- Fetch User Data ---------------------------- #
@@ -128,42 +131,168 @@ def update_user_data(username):
 
 # ---------------------------- Log in Data ---------------------------- #
 
-def log_data():
-    return 0
+def log_data(username):
+    filename = os.path.join("data", "users", f"{username}.json")
+    try:
+        # Open the user's JSON file in read/write mode
+        with open(filename, "r+", encoding="utf-8") as file:
+            # Load the existing user data from the file
+            user = json.load(file)
 
+            # Get the details from the user data
+            current_weight = user["details"]["weight"]
+            current_height = user["details"]["height"]
+            current_age = user["details"]["age"]
+            gender = user["details"]["gender"]
+            
+            # Get the daily log data from user input
+            activity_level = input("Enter today's activity level (low, moderate, high): ").lower()
+            estimated_calories = int(input("Enter estimated calories consumed: "))
+            sleep_hours = float(input("Enter hours slept: "))
+            stress = input("Were you stressed today? (yes/no): ").strip().lower() == "yes"
+            
+            # Create a new log entry
+            log_entry = {
+                "date": datetime.today().strftime('%Y-%m-%d'),
+                "activity": activity_level,
+                "estimated_calories_consumed": estimated_calories,
+                "sleep_hours": sleep_hours,
+                "stress": stress
+            }
+            
+            # Add the new log entry to the daily_logs list
+            user["daily_logs"].append(log_entry)
+
+            # Calculate the metrics (BMI, BMR, TDEE)
+            bmi = calculate_bmi(current_weight, current_height)
+            bmr = calculate_bmr(current_weight, current_height, current_age, gender)
+            tdee = calculate_tdee(bmr, activity_level)
+
+            # Update the user's details with the new metrics
+            user["details"]["metrics"] = {
+                "bmi": bmi,
+                "bmr": bmr,
+                "tdee": tdee
+            }
+
+            # Move the cursor back to the start of the file and write the updated data
+            file.seek(0)
+            json.dump(user, file, indent=4)
+            file.truncate()  # Ensure no extra data remains in the file
+
+            # Print the calculated metrics for confirmation
+            print(f"\nMetrics for {username}:")
+            print(f"BMI: {bmi:.2f}")
+            print(f"BMR: {bmr:.2f} kcal/day")
+            print(f"TDEE: {tdee:.2f} kcal/day")
+            print("✅ Daily log recorded successfully!")
+
+    except FileNotFoundError:
+        print(f"Error: {username}.json file not found.")
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON format.")
 # ---------------------------- Display Logs ---------------------------- #
 
-def show_logs():
-    return 0
+def show_logs(username):
+    filename = os.path.join("data", "users", f"{username}.json")
+    try:
+        with open(filename, "r", encoding="utf-8") as file:
+            user = json.load(file)
+            logs = user.get("daily_logs", [])[-5:]
+            print("\n------------------------------------------")
+            print("        Recent Logs (Last 5 Entries)       ")
+            print("------------------------------------------")
+            if not logs:
+                print("No logs available.")
+                print("------------------------------------------")
+                return
+            for log in logs:
+                print(f"Date           : {log.get('date', 'N/A')}")
+                print(f"Activity       : {log.get('activity', 'N/A').capitalize()}")
+                print(f"Calories       : {log.get('estimated_calories_consumed', 'N/A')} kcal")
+                print(f"Sleep         : {log.get('sleep_hours', 'N/A')} hours")
+                print(f"Stress Level   : {'Yes' if log.get('stress', False) else 'No'}")
+                print("------------------------------------------")
+    except FileNotFoundError:
+        print("Error: User file not found.")
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON format.")
+
+
+
+# ---------------------------- Update Height and Weight ---------------------------- #
+
+
+def update_height_weight(username):
+    # File path for the user data
+    filename = os.path.join("data", "users", f"{username}.json")
+    try:
+        # Open the user's JSON file in read/write mode
+        with open(filename, "r+", encoding="utf-8") as file:
+            # Load the existing user data from the file
+            user = json.load(file)
+
+            # Ask the user for the new height and weight
+            new_weight = float(input("Enter your new weight (kg): "))
+            new_height = float(input("Enter your new height (m): "))
+
+            # Update the height and weight in the details
+            user["details"]["weight"] = new_weight
+            user["details"]["height"] = new_height
+
+            # Recalculate the metrics
+            bmi = calculate_bmi(new_weight, new_height)
+            bmr = calculate_bmr(new_weight, new_height, user["details"]["age"], user["details"]["gender"])
+            tdee = calculate_tdee(bmr, user["details"]["activity_level"])
+
+            # Update the metrics in the details
+            user["details"]["metrics"] = {
+                "bmi": bmi,
+                "bmr": bmr,
+                "tdee": tdee
+            }
+
+            # Move the cursor back to the start of the file and write the updated data
+            file.seek(0)
+            json.dump(user, file, indent=4)
+            file.truncate()  # Ensure no extra data remains in the file
+
+            print("✅ Height and weight updated successfully!")
+            print(f"New BMI: {bmi:.2f}")
+            print(f"New BMR: {bmr:.2f} kcal/day")
+            print(f"New TDEE: {tdee:.2f} kcal/day")
+    except FileNotFoundError:
+        print(f"Error: {username}.json file not found.")
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON format.")
+
 
 # ---------------------------- More Options ---------------------------- #
 
-def more_option():
+def more_option(username):
     while True:
-        a = input("Key in 1 to see more options.\nKey in 2 to exit: ")
-        if a == '1':
-            while True:
-                b = input("Press 1 to log data.\n Press 2 to view your daily logs.\nPress 3 to see your health trends.\nPress 4 to see diet recommendations for you.\nPress 5 to exit: ")
-                if b == '1':
-                    log_data()
-                    break
-                elif b =='2':
-                    show_logs()
-                    break
-                elif b == '3':
-                    visualization.visualize()
-                    break
-                elif b == '4':
-                    recommendations.show_recommendations()
-                    break
-                elif b == '5':
-                    return
-                else:
-                    print("Wrong input received. Please try again.")
-        elif a == '2':
-            return
+        print("\n=========================")
+        print("        Options        ")
+        print("=========================")
+        print("1. Log data")
+        print("2. Show logs")
+        print("3. Show trends")
+        print("4. Show recommendations")
+        print("5. Update height and weight")
+        print("6. Exit")
+        choice = input("Enter your choice: ")
+        
+        if choice == '1':
+            log_data(username)
+        elif choice == '2':
+            show_logs(username)
+        elif choice == '3':
+            visualization.visualize()
+        elif choice == '4':
+            recommendations.show_recommendations()
+        elif choice == '5':
+            update_height_weight(username)
+        elif choice == '6':
+            break
         else:
             print("Invalid choice. Please try again.")
-
-
-    
