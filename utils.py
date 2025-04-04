@@ -134,24 +134,22 @@ def update_user_data(username):
 def log_data(username):
     filename = os.path.join("data", "users", f"{username}.json")
     try:
-        # Open the user's JSON file in read/write mode
+    
         with open(filename, "r+", encoding="utf-8") as file:
-            # Load the existing user data from the file
+          
             user = json.load(file)
 
-            # Get the details from the user data
+        
             current_weight = user["details"]["weight"]
             current_height = user["details"]["height"]
             current_age = user["details"]["age"]
             gender = user["details"]["gender"]
             
-            # Get the daily log data from user input
             activity_level = input("Enter today's activity level (low, moderate, high): ").lower()
             estimated_calories = int(input("Enter estimated calories consumed: "))
             sleep_hours = float(input("Enter hours slept: "))
             stress = input("Were you stressed today? (yes/no): ").strip().lower() == "yes"
             
-            # Create a new log entry
             log_entry = {
                 "date": datetime.today().strftime('%Y-%m-%d'),
                 "activity": activity_level,
@@ -160,27 +158,22 @@ def log_data(username):
                 "stress": stress
             }
             
-            # Add the new log entry to the daily_logs list
             user["daily_logs"].append(log_entry)
 
-            # Calculate the metrics (BMI, BMR, TDEE)
             bmi = calculate_bmi(current_weight, current_height)
             bmr = calculate_bmr(current_weight, current_height, current_age, gender)
             tdee = calculate_tdee(bmr, activity_level)
 
-            # Update the user's details with the new metrics
             user["details"]["metrics"] = {
                 "bmi": bmi,
                 "bmr": bmr,
                 "tdee": tdee
             }
 
-            # Move the cursor back to the start of the file and write the updated data
             file.seek(0)
             json.dump(user, file, indent=4)
-            file.truncate()  # Ensure no extra data remains in the file
+            file.truncate() 
 
-            # Print the calculated metrics for confirmation
             print(f"\nMetrics for {username}:")
             print(f"BMI: {bmi:.2f}")
             print(f"BMR: {bmr:.2f} kcal/day")
@@ -224,38 +217,30 @@ def show_logs(username):
 
 
 def update_height_weight(username):
-    # File path for the user data
     filename = os.path.join("data", "users", f"{username}.json")
     try:
-        # Open the user's JSON file in read/write mode
         with open(filename, "r+", encoding="utf-8") as file:
-            # Load the existing user data from the file
             user = json.load(file)
 
-            # Ask the user for the new height and weight
             new_weight = float(input("Enter your new weight (kg): "))
             new_height = float(input("Enter your new height (m): "))
 
-            # Update the height and weight in the details
             user["details"]["weight"] = new_weight
             user["details"]["height"] = new_height
 
-            # Recalculate the metrics
             bmi = calculate_bmi(new_weight, new_height)
             bmr = calculate_bmr(new_weight, new_height, user["details"]["age"], user["details"]["gender"])
             tdee = calculate_tdee(bmr, user["details"]["activity_level"])
 
-            # Update the metrics in the details
             user["details"]["metrics"] = {
                 "bmi": bmi,
                 "bmr": bmr,
                 "tdee": tdee
             }
 
-            # Move the cursor back to the start of the file and write the updated data
             file.seek(0)
             json.dump(user, file, indent=4)
-            file.truncate()  # Ensure no extra data remains in the file
+            file.truncate()  
 
             print("✅ Height and weight updated successfully!")
             print(f"New BMI: {bmi:.2f}")
@@ -269,8 +254,9 @@ def update_height_weight(username):
 
 # ---------------------------- More Options ---------------------------- #
 
+
 def more_option(username):
-    while True:
+    def print_menu():
         print("\n=========================")
         print("        Options        ")
         print("=========================")
@@ -280,19 +266,34 @@ def more_option(username):
         print("4. Show recommendations")
         print("5. Update height and weight")
         print("6. Exit")
-        choice = input("Enter your choice: ")
-        
-        if choice == '1':
+
+    print_menu() 
+
+    while True:
+        choice = input("Enter your choice (1-6), or press Enter to show options again: ").strip()
+
+        if choice == '':
+            print_menu()
+
+        elif choice == '1':
             log_data(username)
+
         elif choice == '2':
             show_logs(username)
+
         elif choice == '3':
-            visualization.visualize()
+            visualization.visualize(username)
+
         elif choice == '4':
-            recommendations.show_recommendations()
+            recommendations.show_recommendations(username)
+
         elif choice == '5':
             update_height_weight(username)
+
         elif choice == '6':
+            print("👋 Exiting the options menu. See you soon!")
             break
+
         else:
-            print("Invalid choice. Please try again.")
+            print("❌ Invalid choice. Press Enter to see the menu again.")
+

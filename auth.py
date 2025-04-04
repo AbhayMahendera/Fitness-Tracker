@@ -12,7 +12,7 @@ def verify_password(entered_password, stored_hash):
     return bcrypt.checkpw(entered_password.encode('utf-8'), stored_hash.encode('utf-8'))
 
 
-# ---------------------------- Sign Up ---------------------------- #
+                            # ---------------------------- Sign Up ---------------------------- #
 
 def signup():
     username = input("Type in a username for your account: ")
@@ -34,7 +34,7 @@ def signup():
     print("\nPassword set successfully!\n")
 
                                  #---------------------------Hashing and Storing the password---------------------------
-        # Hashing and Storing the password
+ 
     password_hashed = hash_password(password)
     print(f"Hashed password: {password_hashed}")
 
@@ -54,10 +54,10 @@ def signup():
     with open(filename, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=4)
 
-    # -------------------------------------- #
+                                         # -------------------------------------- #
     filename = os.path.join("data", "users", f"{username}.json")
     
-    # Ensure the directory exists
+
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     full_name = input("Enter your full name: ")
