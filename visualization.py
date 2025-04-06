@@ -47,6 +47,3 @@ def visualize(username):
     except json.JSONDecodeError:
         print("❌ Invalid JSON format.")
 
-
-
-print(visualize("abhay12"))
